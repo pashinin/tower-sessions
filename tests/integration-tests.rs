@@ -10,7 +10,9 @@ mod memory_store_tests {
 
     async fn app(max_age: Option<Duration>) -> Router {
         let session_store = MemoryStore::default();
-        let session_manager = SessionManagerLayer::new(session_store).with_secure(true);
+        let session_manager = SessionManagerLayer::new(session_store)
+            .with_domain(".example.localhost".into())
+            .with_secure(true);
         build_app(session_manager, max_age)
     }
 

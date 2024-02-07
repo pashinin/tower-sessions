@@ -147,8 +147,11 @@ where
                 tracing::trace!(modified = modified, empty = empty, "session response state");
 
                 match session_cookie {
-                    Some(cookie) if empty => {
+                    Some(mut cookie) if empty => {
                         tracing::debug!("removing session cookie");
+                        if let Some(domain) = session_config.domain {
+                            cookie.set_domain(domain);
+                        }
                         cookies.remove(cookie)
                     }
 

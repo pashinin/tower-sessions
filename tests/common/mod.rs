@@ -165,6 +165,7 @@ macro_rules! route_tests {
                 .is_some_and(|dt| dt <= Duration::hours(1)));
             assert_eq!(session_cookie.secure(), Some(true));
             assert_eq!(session_cookie.path(), Some("/"));
+            assert_eq!(session_cookie.domain(), Some("example.localhost"));
         }
 
         #[tokio::test]
@@ -182,6 +183,7 @@ macro_rules! route_tests {
             assert!(session_cookie.max_age().is_none());
             assert_eq!(session_cookie.secure(), Some(true));
             assert_eq!(session_cookie.path(), Some("/"));
+            assert_eq!(session_cookie.domain(), Some("example.localhost"));
         }
 
         #[tokio::test]
@@ -299,6 +301,7 @@ macro_rules! route_tests {
 
             assert_eq!(session_cookie.value(), "");
             assert_eq!(session_cookie.max_age(), Some(Duration::ZERO));
+            assert_eq!(session_cookie.domain(), Some("example.localhost"));
         }
     };
 }
